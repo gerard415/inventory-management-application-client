@@ -15,7 +15,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.baseURL = 'https://inventory-management-application-api.onrender.com'
 axios.defaults.withCredentials = true
 
 const App = () => {
