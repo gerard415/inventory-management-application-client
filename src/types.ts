@@ -4,6 +4,7 @@ export type UserProps = {
     ready: boolean,
     redirect: boolean,
     setRedirect: React.Dispatch<React.SetStateAction<boolean>>,
+    setUpdateUser: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export type userStateProps = {

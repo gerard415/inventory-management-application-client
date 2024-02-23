@@ -8,13 +8,20 @@ import axios from 'axios';
 import { successfulNotification } from '../notifications';
 
 const SideBar = () => {
-    const {setUser, setRedirect}: UserProps = useContext(UserContext)
+    const {setUpdateUser}: UserProps = useContext(UserContext)
+    const [redirect, setRedirect] = useState<boolean>(false)
 
     const handleLogout = async () => {
         await axios.post('/auth/logout')
+        localStorage.removeItem('token')
+
         successfulNotification('logout successful')
-        setUser(null)
+        setUpdateUser(prev => !prev)
         setRedirect(true)
+    }
+
+    if(redirect) {
+        return <Navigate to={'/'} />
     }
 
     return (

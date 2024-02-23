@@ -12,16 +12,18 @@ const RegisterPage= () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
-    const {setUser}: UserProps = useContext(UserContext)
+    const {setUpdateUser}: UserProps = useContext(UserContext)
     const [redirect, setRedirect] = useState<boolean>(false)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const {data} = await axios.post('http://localhost:5000/auth/register', {name: `${firstname}` + ` ${lastname}`, email, password})
+            const {data} = await axios.post('/auth/register', {name: `${firstname}` + ` ${lastname}`, email, password})
+            localStorage.setItem('token', data.token)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+
             successfulNotification('registration successful')
-            setUser(data)
-            // localStorage.setItem('user', JSON.stringify(data))
+            setUpdateUser(prev => !prev)
             setRedirect(true)
         } catch (error) {
             errorNotification('registration unsuccessful, please try again later')

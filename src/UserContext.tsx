@@ -7,26 +7,24 @@ export const UserContext: React.Context<UserProps>  = createContext({} as UserPr
 
 type UserContextProviderProps = {
     children: React.ReactNode
-
 }
 
 const UserContextProvider = ({children}: UserContextProviderProps) => {
     const [user, setUser] = useState<userStateProps | null>(null)
     const [ready, setReady] = useState(false)
     const [redirect,setRedirect] = useState<boolean>(false);
+    const [updateUser, setUpdateUser] = useState(false)
 
 
     useEffect(() => {
-        if(!user){
-            axios.get('/auth/profile').then(({data}) => {
-                setUser(data)
-                setReady(true)
-            }).catch((err) => err)
-        }
-    })
+        axios.get('/auth/profile').then(({data}) => {
+            setUser(data)
+            setReady(true)
+        }).catch((err) => err)
+    }, [updateUser])
 
     return (
-        <UserContext.Provider value={{user, setUser, ready, redirect, setRedirect}}>
+        <UserContext.Provider value={{user, setUser, ready, redirect, setRedirect, setUpdateUser}}>
             {children}
         </UserContext.Provider>
     )

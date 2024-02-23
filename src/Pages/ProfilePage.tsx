@@ -6,7 +6,7 @@ import axios from 'axios'
 import { errorNotification, successfulNotification } from '../notifications'
 
 const ProfilePage = () => {
-  const {user, setUser}: UserProps = useContext(UserContext)
+  const {user, setUpdateUser}: UserProps = useContext(UserContext)
 
   const fullName = user?.name?.split(' ')
 
@@ -20,22 +20,16 @@ const ProfilePage = () => {
   const editProfile = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       try {
-        const {data} = await axios.patch('/auth/profile', {
+        await axios.patch('/auth/profile', {
           name:firstname+ ' ' +lastname, email, phone, bio
         })
         successfulNotification('profile updated successfully')
-        setUser(data)
-        console.log(data)
+        setUpdateUser(prev => !prev)
       } catch (error) {
           errorNotification('error occured, Please try again later')
           console.log(error)
       }
   }
-
-  useEffect(() => {
-
-  })
-
   
   return (
     <div className='bg-gray-100 w-full  flex justify-center items-center overflow-hidden' >

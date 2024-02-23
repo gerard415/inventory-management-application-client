@@ -26,7 +26,7 @@ const HomePage = () => {
     })
     
     setLoading(false)
-  }, [products, product])
+  }, [])
 
   categories = new Set(details.map(detail => detail.category))
 

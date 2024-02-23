@@ -34,7 +34,7 @@ const Layout = () => {
           <SideBar/>
         </div>
         {openSideBar? 
-        <div className='lg:hidden w-[240px] fixed z-30 bg-white h-full'>
+        <div className='lg:hidden w-[240px] fixed z-30 bg-white h-full pb-10'>
           <SideBar/>
         </div> : 
         <div className='hidden'>

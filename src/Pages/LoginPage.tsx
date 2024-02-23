@@ -10,15 +10,18 @@ const LoginPage = () => {
     const [password, setPassword] = useState<string>('')
     const [redirect, setRedirect] = useState<boolean>(false)
 
-    const {setUser}: UserProps = useContext(UserContext)
+    const {setUpdateUser}: UserProps = useContext(UserContext)
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             const {data} = await axios.post('/auth/login', {email,password})
-            successfulNotification('login successful')
-            setUser(data)
+            localStorage.setItem('token', data.token)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+            
             setRedirect(true)
+            successfulNotification('login successful')
+            setUpdateUser(prev => !prev)
         } catch (error) {
             errorNotification('login unsuccessful, please try again later')
             return error
