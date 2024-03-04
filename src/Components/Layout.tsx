@@ -1,6 +1,6 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import SideBar from './SideBar'
-import {Outlet} from "react-router-dom";
+import {Outlet, useLocation} from "react-router-dom";
 import Loading from './Loading';
 import { Navigate } from "react-router-dom";
 import { UserContext } from '../UserContext'
@@ -10,6 +10,12 @@ import DashboardHeader from './DashboardHeader';
 const Layout = () => {
   const {user, ready, redirect}: UserProps = useContext(UserContext)
   const [openSideBar, setOpenSideBar] = useState(false)
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setOpenSideBar(false)
+  }, [location]);
 
   if(!ready){
     return <Loading/>
@@ -41,8 +47,10 @@ const Layout = () => {
           <SideBar/>
         </div>
         }
-        <div className={openSideBar ? 'w-full min-h-full bg-gray-900 opacity-50 lg:bg-gray-100 lg:opacity-100 overflow-y-auto' : 'w-full bg-gray-100 min-h-full overflow-y-auto '}  onClick={() => setOpenSideBar(false)} >
-          <Outlet/>
+        <div className={openSideBar ? ' min-h-full  opacity-20 lg:bg-gray-100 lg:opacity-100 overflow-y-auto' : 'w-full bg-gray-100 min-h-full overflow-y-auto '}  onClick={() => setOpenSideBar(false)} >
+          <div className={openSideBar ? 'pointer-events-none' : ''}>
+            <Outlet/>
+          </div>
         </div>
       </div>
     </div>
