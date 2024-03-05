@@ -16,20 +16,6 @@ type EditModalProps = {
   setProduct: React.Dispatch<React.SetStateAction<productProps | undefined>>
 }
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 900,
-  bgcolor: 'background.paper',
-  border: '',
-  boxShadow: 24,
-  p: 4,
-  borderRadius:'10px',
-  height:'520px'
-};
-
 export default function EditProductModal({product, setProduct}: EditModalProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -84,20 +70,20 @@ export default function EditProductModal({product, setProduct}: EditModalProps) 
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <form className='flex flex-col justify-between min-h-[430px] space-y-5'>
+        <div className=' w-[250px] space-y-3 phone:w-[300px]  sm:w-[500px] md:w-[700px] p-2 sm:p-4 bg-gray-200 border  absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]   '>
+          <form className='flex flex-col justify-between min-h-[430px] space-y-3' >
             <div className='flex justify-end'>
               <button onClick={handleClose}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                  </svg>
               </button>
             </div>
-            <div className='flex space-x-6'>
-              <div className='border border-gray-300 h-[370px] w-full'>
+            <div className='sm:flex space-y-2 sm:space-x-6'>
+              <div className='border border-gray-300 sm:h-[370px] w-full'>
                 <ModalImageUploader addedPhotos={addedPhotos} setAddedPhotos={setAddedPhotos} />
               </div>
-              <div className='border border-gray-300 min-h-[370px] w-full'>
+              <div className='border border-gray-300 sm:min-h-[370px] w-full'>
                 <ModalForm 
                   name={name} 
                   category={category} 
@@ -113,10 +99,10 @@ export default function EditProductModal({product, setProduct}: EditModalProps) 
               </div>
             </div>
             <div className='flex justify-end space-x-3'>
-              <button className='w-[120px] h-[32px] rounded-sm bg-red-500' onClick={(e) => closeModal(e)} >
+              <button className='sm:w-[120px] sm:h-[32px] text-[11px] sm:text-[14px] p-1 px-6 sm:p-0 sm:px-0 rounded-sm bg-red-500' onClick={(e) => closeModal(e)} >
                 Cancel
               </button>
-              <button className='w-[120px] h-[32px] rounded-sm border border-black disabled:border-gray-300 disabled:text-gray-400 ' 
+              <button className='sm:w-[138px] sm:h-[32px] text-[11px] sm:text-[14px] p-1 px-6 rounded-sm border border-black disabled:border-gray-300 disabled:text-gray-400 ' 
                 onClick={(e) => editProduct(e, product._id)}
                 disabled={
                   name === product.name 
@@ -132,7 +118,7 @@ export default function EditProductModal({product, setProduct}: EditModalProps) 
               </button>
             </div>
           </form>
-        </Box>
+        </div>
       </Modal>
     </div>
   );

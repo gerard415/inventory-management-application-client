@@ -12,19 +12,6 @@ type DeleteModalProps = {
     setProducts: React.Dispatch<React.SetStateAction<productProps[] | undefined>>
 }
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 450,
-  bgcolor: 'background.paper',
-  border: '',
-  boxShadow: 24,
-  
-  borderRadius:'5px',
-};
-
 export default function DeleteProductModal({product, setProducts}: DeleteModalProps) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -56,24 +43,23 @@ export default function DeleteProductModal({product, setProducts}: DeleteModalPr
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <div className='flex flex-col justify-center space-y-6 px-8 py-6'>
+                <div className='w-[210px] phone:w-[250px] sm:w-[350px]  sm:h-[100px] rounded-sm bg-gray-200 border flex justify-center items-center  absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]'>
+                    <div className='flex flex-col justify-between p-2 items-center space-y-2 '>
                         <div className='flex items-center justify-center'>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <p className='text-[10px] phone:text-[12px] sm:text-[15px] '>
                                 Are you sure you want to delete this item?
-                            </Typography>
+                            </p>
                         </div>
-                        
-                        <div className='flex justify-end space-x-3 mr-1'>
-                            <button className='w-[120px] h-[32px] rounded-sm border border-black' onClick={handleClose} >
+                        <div className='flex justify-center space-x-3'>
+                            <button className='sm:w-[120px] text-[11px] sm:text-[14px] px-6 sm:h-[32px] rounded-sm border border-black' onClick={handleClose} >
                                 Cancel
                             </button>
-                            <button className='w-[120px] h-[32px] bg-red-500 rounded-sm' onClick={(e) => deleteProduct(e, product._id)} >
+                            <button className='sm:w-[120px] text-[11px] sm:text-[14px] py-1 px-6 sm:h-[32px] bg-red-500 rounded-sm' onClick={(e) => deleteProduct(e, product._id)} >
                                 Delete
                             </button>
                         </div>
                     </div>
-                </Box>
+                </div>
             </Modal>
         </div>
     );

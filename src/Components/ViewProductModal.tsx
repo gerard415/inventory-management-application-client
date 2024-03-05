@@ -14,20 +14,6 @@ type EditModalProps = {
   product: productProps,
 }
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 900,
-  bgcolor: 'background.paper',
-  border: '',
-  boxShadow: 24,
-  p: 4,
-  borderRadius:'10px',
-  height:'520px'
-};
-
 export default function ViewProductModal({product}: EditModalProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -38,11 +24,6 @@ export default function ViewProductModal({product}: EditModalProps) {
   const [price, setPrice] = useState<number>(product.price)
   const [description, setDescription] = useState<string>(product.description)
   const [addedPhotos, setAddedPhotos] = useState<imageProps[]>(product.images)
-
-  const editProduct = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id:string) => {
-    e.preventDefault()
-    
-  }
 
   const resetState = () => {
     setName(product.name)
@@ -68,51 +49,52 @@ export default function ViewProductModal({product}: EditModalProps) {
             </svg>
         </button>
         <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
-              <div className='flex flex-col justify-between min-h-[430px] space-y-5'>
-                  <div className='flex justify-end'>
-                  <button onClick={handleClose}>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                  </button>
-                  </div>
-                  <div className='flex space-x-6 justify-center'>
-                    <div className='border flex flex-col border-gray-300 min-h-[300px] w-[400px] space-y-0'>
-                        { addedPhotos.length > 0 ? <div><img className='h-[200px] w-full border'  src={product.images[0].filePath } alt="" /></div> : <div className='bg-gray-300 h-[30px] w-full'></div>}
-                        <div className='flex'>
-                          {addedPhotos.length>1 && <img className='h-[148px] w-[33.3%] border'  src={product.images[1].filePath } alt="" />}
-                          {addedPhotos.length>2 && <img className='h-full w-[33.3%] border'  src={product.images[2].filePath } alt="" />}
-                          {addedPhotos.length>3 && <img className='h-full w-[33.3%] border'  src={product.images[3].filePath } alt="" />}
-                        </div>
+          <div className=' w-[250px] space-y-3 phone:w-[300px]  sm:w-[500px] md:w-[700px] sm:h-[500px] md p-2 sm:p-4 bg-gray-200 border  absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]   '>
+            <div className='flex justify-end'>
+              <button onClick={handleClose}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+              </button>
+            </div>
+            <div className='sm:flex sm:space-x-6 space-y-2 sm:space-y-0 justify-center'>
+              <div className='border flex flex-col border-gray-300 min-h-[100px] sm:min-h-[300px] w-full  space-y-0'>
+                  { addedPhotos.length > 0 ? <div><img className={addedPhotos.length > 1 ? 'h-[100px] sm:h-[200px] w-full border' : 'h-[200px] sm:h-full w-full border'}  src={product.images[0]?.filePath } alt="" /></div> : <div className='bg-gray-500 h-[30px] w-full'></div>}
+                  { addedPhotos.length > 1 && 
+                    <div className='flex'>
+                      <img className={addedPhotos.length >3 ? 'h-[100px] sm:h-[148px] w-[33.3%] border' : addedPhotos.length >2 ? 'h-[100px] sm:h-[148px] w-[50%] border' : 'h-[100px] sm:h-[148px] w-[100%] border'}  src={product.images[1]?.filePath } alt="" />
+                      {addedPhotos.length>2 && <img className={addedPhotos.length >3 ? 'h-[100px] sm:h-[148px] w-[33.3%] border' : 'h-[100px] sm:h-[148px] w-[50%] border'}  src={product.images[2]?.filePath } alt="" />  }
+                      {addedPhotos.length>3 && <img className={'h-[100px] sm:h-[148px] w-[33.3%] border'}  src={product.images[3]?.filePath } alt="" />  }
                     </div>
-                    <div className='border border-gray-300 min-h-[300px] w-[400px]'>
-                        <ModalForm 
-                          name={name} 
-                          category={category} 
-                          quantity={quantity} 
-                          price={price} 
-                          description={description} 
-                          setName={setName}
-                          setCategory={setCategory}
-                          setQuantity={setQuantity}
-                          setPrice={setPrice}
-                          setDescription={setDescription}
-                        />
-                    </div>
-                  </div>
-                  <div className='flex justify-end space-x-3'>
-                  <button className='w-[120px] h-[32px] rounded-sm bg-red-500' onClick={(e) => closeModal(e)} >
-                      Close
-                  </button>
-                  </div>
+                  }
+                  
               </div>
-            </Box>
+              <div className='border border-gray-300 min-h-[200px] w-full'>
+                  <ModalForm 
+                    name={name} 
+                    category={category} 
+                    quantity={quantity} 
+                    price={price} 
+                    description={description} 
+                    setName={setName}
+                    setCategory={setCategory}
+                    setQuantity={setQuantity}
+                    setPrice={setPrice}
+                    setDescription={setDescription}
+                  />
+              </div>
+            </div>
+            <div className='flex justify-end space-x-3'>
+              <button className='w-[120px] h-[32px] rounded-sm bg-red-500' onClick={(e) => closeModal(e)} >
+                  Close
+              </button>
+            </div>
+          </div>
         </Modal>
     </div>
   );
