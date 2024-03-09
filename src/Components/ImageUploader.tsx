@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { FileProps, imageProps } from '../types';
 import axios from 'axios';
+import { errorNotification } from '../notifications';
 
 type ImageUploaderProps = {
     addedPhotos: imageProps[],
@@ -28,9 +29,9 @@ const ImageUploader = ({addedPhotos, setAddedPhotos}: ImageUploaderProps) => {
             })
             setUploading(false)
             setAddedPhotos(prevState => [...prevState, ...images])
-            console.log(addedPhotos)
         } catch (error) {
             console.log(error)
+            errorNotification(`${addedPhotos.length > 1 ? 'images' : 'image'} could not be uploaded please try again later `)
         }
     };
     
